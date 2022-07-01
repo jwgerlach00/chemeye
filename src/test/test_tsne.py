@@ -41,7 +41,7 @@ class TestTsne(unittest.TestCase):
                 mat_ecfp6
             )
         )
-        
+
 
 if __name__ == '__main__':
     unittest.main()

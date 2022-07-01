@@ -18,4 +18,3 @@ def sim_matrix(row_prints:Iterable, col_prints:Iterable, key_type:str='ecfp'):
             full_array[i][j] = similarity
     
     return full_array
-
