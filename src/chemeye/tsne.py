@@ -1,6 +1,12 @@
 import numpy as np
-from rdkit import DataStructs
+from rdkit import Chem, DataStructs
+import plotly.express as px
 from typing import Iterable
+from sklearn.manifold import TSNE
+from rdkit.Chem import AllChem
+import naclo
+import pandas as pd
+from stse.dataframes import z_norm
 
 
 def sim_matrix(row_prints:Iterable, col_prints:Iterable, key_type:str='ecfp'):
@@ -18,3 +24,8 @@ def sim_matrix(row_prints:Iterable, col_prints:Iterable, key_type:str='ecfp'):
             full_array[i][j] = similarity
     
     return full_array
+
+
+def descriptor_tsne(descriptors:Iterable, seed=42) -> np.array:
+    tsne = TSNE(n_components=2, random_state=seed)
+    return tsne.fit_transform(descriptors)

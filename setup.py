@@ -18,5 +18,6 @@ setup(
         'numpy',
         'plotly',
         'rdkit_pypi',
+        'stse'
     ],
 )
