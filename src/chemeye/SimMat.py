@@ -2,7 +2,7 @@ from typing import Iterable
 import plotly.graph_objects as go
 import plotly.express as px
 
-from chemeye.tsne import sim_matrix
+from chemeye.arrays import sim_matrix
 from chemeye.__asset_loader import default_simmat_options as default_options
 
 

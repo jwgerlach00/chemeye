@@ -9,7 +9,7 @@ import pandas as pd
 from stse.dataframes import z_norm
 
 
-def sim_matrix(row_prints:Iterable, col_prints:Iterable, key_type:str='ecfp'):
+def sim_matrix(row_prints:Iterable, col_prints:Iterable, key_type:str='ecfp') -> np.array:
     full_array = np.zeros((len(row_prints), len(col_prints)))
 
     for i, row in enumerate(row_prints):
@@ -25,7 +25,6 @@ def sim_matrix(row_prints:Iterable, col_prints:Iterable, key_type:str='ecfp'):
     
     return full_array
 
-
-def descriptor_tsne(descriptors:Iterable, seed=42) -> np.array:
-    tsne = TSNE(n_components=2, random_state=seed)
+def tsne(descriptors:np.array, seed=42) -> np.array:
+    tsne = TSNE(n_components=2, random_state=seed, learning_rate='auto', init='pca')
     return tsne.fit_transform(descriptors)
