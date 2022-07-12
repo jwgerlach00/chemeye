@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='chemeye',
-    version='0.0.2',
+    version='0.0.3',
     license='MIT',
     author='Jacob Gerlach',
     author_email='jwgerlach00@gmail.com',
@@ -14,10 +14,10 @@ setup(
     package_data={'chemeye': ['assets/default_simmat_options.json']},
     python_requires='>=3.6',
     install_requires=[
-        'naclo',
         'numpy',
         'plotly',
+        'rdkit',
         'rdkit_pypi',
-        'stse'
+        'scikit-learn'
     ],
 )

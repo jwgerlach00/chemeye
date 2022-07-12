@@ -1,12 +1,7 @@
 import numpy as np
-from rdkit import Chem, DataStructs
-import plotly.express as px
+from rdkit import DataStructs
 from typing import Iterable
 from sklearn.manifold import TSNE
-from rdkit.Chem import AllChem
-import naclo
-import pandas as pd
-from stse.dataframes import z_norm
 
 
 def sim_matrix(row_prints:Iterable, col_prints:Iterable, key_type:str='ecfp') -> np.array:
