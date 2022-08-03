@@ -1,6 +1,8 @@
 from typing import Iterable
+import numpy as np
 import plotly.graph_objects as go
 import plotly.express as px
+from copy import deepcopy
 
 from chemeye.arrays import sim_matrix
 from chemeye.__asset_loader import default_simmat_options as default_options
@@ -10,8 +12,8 @@ class SimMat:
     def __init__(self, row_prints:Iterable, col_prints:Iterable, options:dict=default_options, 
                  key_type:str='ecfp') -> None:
         self.options = options
-        sim_arr = sim_matrix(row_prints=row_prints, col_prints=col_prints, key_type=key_type)
-        self.fig = px.imshow(sim_arr, color_continuous_scale=options['color_scale'])
+        self.__sim_arr = sim_matrix(row_prints=row_prints, col_prints=col_prints, key_type=key_type)
+        self.fig = px.imshow(self.__sim_arr, color_continuous_scale=options['color_scale'])
         self.update()
         
     def __title(self) -> None:
@@ -28,6 +30,9 @@ class SimMat:
         self.fig.update_yaxes(visible=y['show'])
         
         self.fig.update_layout(xaxis_side=x['position'], yaxis_side=y['position'])
+        
+    def get_matrix(self) -> np.array:
+        return deepcopy(self.__sim_arr)
         
     def update(self) -> go.Figure:
         self.__title()
