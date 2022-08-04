@@ -23,7 +23,9 @@ class TSNEPlotter:
             color_map[color] = css_colors[i]
         return color_map
         
-    def plot(self, x_name, y_name, color_category:Optional[Iterable]=None, css_color_map:bool=False) -> go.Figure:
+    def plot(self, x_name:str='tsne-1', y_name:str='tsne-2', color_category:Optional[Iterable]=None,
+             css_color_map:bool=False) -> go.Figure:
+        print(self.__descriptors)
         arr = tsne(self.__descriptors)
         df = pd.DataFrame({
             x_name: arr[:, 0],
@@ -37,7 +39,7 @@ class TSNEPlotter:
             opacity = 0.5
             color = 'color'
 
-        df['color'] = df['color'].fillna('missing color')  # Replace NaN w/ string bc px doesn't like NaN
+            df['color'] = df['color'].fillna('missing color')  # Replace NaN w/ string bc px doesn't like NaN
         
         if css_color_map:
             return px.scatter(df, x=x_name, y=y_name, color=color, render_mode='svg', opacity=opacity,
