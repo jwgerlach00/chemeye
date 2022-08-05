@@ -1,7 +1,7 @@
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
-from typing import Iterable, Optional
+from typing import Iterable, Optional, Tuple
 import pandas as pd
 from matplotlib.colors import CSS4_COLORS
 
@@ -9,6 +9,9 @@ from chemeye.arrays import tsne
 
 
 class TSNEPlotter:
+    X_NAME = 'tsne-x'
+    Y_NAME = 'tsne-y'
+    
     def __init__(self, descriptors:np.array) -> None:
         self.__descriptors = np.copy(descriptors)
     
@@ -22,28 +25,38 @@ class TSNEPlotter:
         for i, color in enumerate(unique_colors):
             color_map[color] = css_colors[i]
         return color_map
-        
-    def plot(self, x_name:str='tsne-1', y_name:str='tsne-2', color_category:Optional[Iterable]=None,
-             css_color_map:bool=False) -> go.Figure:
-        print(self.__descriptors)
-        arr = tsne(self.__descriptors)
-        df = pd.DataFrame({
+    
+    @staticmethod
+    def tsne_df(descriptors, x_name:str=X_NAME, y_name:str=Y_NAME) -> pd.DataFrame:
+        arr = tsne(descriptors)
+        return pd.DataFrame({
             x_name: arr[:, 0],
             y_name: arr[:, 1]
         })
-
-        opacity = 1
+    
+    @staticmethod
+    def plot(df:pd.DataFrame, x_col_name:str=X_NAME, y_col_name:str=Y_NAME, color_category:Optional[Iterable]=None,
+             css_color_map:bool=False) -> go.Figure:
+        opacity = 0.5
         color = None
+        
         if color_category:
             df['color'] = color_category
-            opacity = 0.5
             color = 'color'
-
             df['color'] = df['color'].fillna('missing color')  # Replace NaN w/ string bc px doesn't like NaN
         
         if css_color_map:
-            return px.scatter(df, x=x_name, y=y_name, color=color, render_mode='svg', opacity=opacity,
-                              color_discrete_map=self.css_color_map(color_category))
+            plot = px.scatter(df, x=x_col_name, y=y_col_name, color=color, render_mode='svg', opacity=opacity,
+                              color_discrete_map=TSNEPlotter.css_color_map(color_category))
         else:
-            return px.scatter(df, x=x_name, y=y_name, color=color, render_mode='svg', opacity=opacity,
+            plot = px.scatter(df, x=x_col_name, y=y_col_name, color=color, render_mode='svg', opacity=opacity,
                               color_discrete_sequence=px.colors.qualitative.Alphabet)
+        return plot
+    
+    def main(self, color_category:Optional[Iterable]=None, css_color_map:bool=False) -> Tuple[go.Figure, pd.DataFrame]:
+        df = self.tsne_df(self.__descriptors)
+        return (
+            TSNEPlotter.plot(df, color_category=color_category, css_color_map=css_color_map),
+            df
+        )
+        
