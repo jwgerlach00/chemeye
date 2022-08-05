@@ -36,8 +36,7 @@ class TSNEPlotter:
     
     @staticmethod
     def plot(df:pd.DataFrame, x_col_name:str=X_NAME, y_col_name:str=Y_NAME, color_category:Optional[Iterable]=None,
-             css_color_map:bool=False) -> go.Figure:
-        opacity = 0.5
+             css_color_map:bool=False, opacity:float=1) -> go.Figure:
         color = None
         
         if color_category:
@@ -51,6 +50,7 @@ class TSNEPlotter:
         else:
             plot = px.scatter(df, x=x_col_name, y=y_col_name, color=color, render_mode='svg', opacity=opacity,
                               color_discrete_sequence=px.colors.qualitative.Alphabet)
+        plot.update_layout(title={'x': 0.5})
         return plot
     
     def main(self, color_category:Optional[Iterable]=None, css_color_map:bool=False) -> Tuple[go.Figure, pd.DataFrame]:
