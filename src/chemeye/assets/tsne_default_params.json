@@ -1,0 +1,11 @@
+{
+    "descriptor_type": "ecfp",
+    "structure_col": "",
+    "structure_type": "",
+    "other_descriptor_cols": [],
+    "color_col": "",
+    "ecfp_options": {
+        "radius": 2,
+        "n_bits": 1024
+    }
+}
