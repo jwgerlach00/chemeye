@@ -14,6 +14,7 @@ setup(
     package_data={'chemeye': ['assets/default_simmat_options.json']},
     python_requires='>=3.6',
     install_requires=[
+        'matplotlib',
         'numpy',
         'plotly',
         'rdkit',
