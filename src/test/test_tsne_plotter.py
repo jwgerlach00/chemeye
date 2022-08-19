@@ -2,10 +2,10 @@ import unittest
 import plotly.graph_objects as go
 
 import naclo
-from chemeye import TSNEPlotter
+from chemeye import TSNE
 
 
-class TestTSNEPlotter(unittest.TestCase):
+class TestTSNE(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.test_smiles = ['CN=C=O', 'CCC', 'O']
