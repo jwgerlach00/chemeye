@@ -6,7 +6,8 @@ from rdkit import DataStructs
 
 
 class SimMat:
-    def __init__(self, row_prints:Iterable, col_prints:Iterable, key_type:str='ecfp',
+    def __init__(self, row_prints:Iterable[DataStructs.cDataStructs.ExplicitBitVect],
+                 col_prints:Iterable[DataStructs.cDataStructs.ExplicitBitVect], key_type:str='ecfp',
                  row_labels:Optional[Iterable[str]]=None, col_labels:Optional[Iterable[str]]=None) -> None:
         self.__row_prints = row_prints
         self.__col_prints = col_prints
@@ -38,7 +39,7 @@ class SimMat:
         fig.update_layout(title={ 'x': 0.5 })
         return fig
     
-    def main(self) -> Tuple[go.Figure, np.array]:
+    def main(self) -> Tuple[go.Figure, np.ndarray]:
         sim_arr = self.sim_matrix(row_prints=self.__row_prints, col_prints=self.__col_prints, key_type=self.__key_type)
         fig = self.plot(sim_arr, row_labels=self.__row_labels, col_labels=self.__col_labels)
         return (fig, sim_arr)

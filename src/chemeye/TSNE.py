@@ -17,7 +17,8 @@ class TSNE:
     
     @staticmethod
     def tsne(descriptors:np.array, seed=RANDOM_SEED) -> np.array:
-        tsne = sklearn_TSNE(n_components=2, random_state=seed, learning_rate='auto', init='pca')
+        tsne = sklearn_TSNE(n_components=2, random_state=seed, learning_rate='auto', init='pca',
+                            perplexity=(len(descriptors)-1 if len(descriptors) < 30 else 30))
         return tsne.fit_transform(descriptors)
     
     @staticmethod
@@ -64,4 +65,3 @@ class TSNE:
             TSNE.plot(df, color_category=color_category, css_color_map=css_color_map),
             df
         )
-        

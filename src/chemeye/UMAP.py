@@ -65,4 +65,3 @@ class UMAP:
             UMAP.plot(df, color_category=color_category, css_color_map=css_color_map),
             df
         )
-        
