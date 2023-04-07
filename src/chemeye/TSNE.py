@@ -12,11 +12,11 @@ class TSNE:
     Y_NAME = 'tsne-y'
     RANDOM_SEED = 42
     
-    def __init__(self, descriptors:np.array) -> None:
+    def __init__(self, descriptors:np.ndarray) -> None:
         self.__descriptors = np.copy(descriptors)
     
     @staticmethod
-    def tsne(descriptors:np.array, seed=RANDOM_SEED) -> np.array:
+    def tsne(descriptors:np.ndarray, seed=RANDOM_SEED) -> np.ndarray:
         tsne = sklearn_TSNE(n_components=2, random_state=seed, learning_rate='auto', init='pca',
                             perplexity=(len(descriptors)-1 if len(descriptors) < 30 else 30))
         return tsne.fit_transform(descriptors)

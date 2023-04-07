@@ -12,11 +12,11 @@ class UMAP:
     Y_NAME = 'umap-y'
     RANDOM_SEED = 42
     
-    def __init__(self, descriptors:np.array) -> None:
+    def __init__(self, descriptors:np.ndarray) -> None:
         self.__descriptors = np.copy(descriptors)
     
     @staticmethod
-    def umap(descriptors:np.array, seed=RANDOM_SEED) -> np.array:
+    def umap(descriptors:np.ndarray, seed=RANDOM_SEED) -> np.ndarray:
         umap = UMAPS(random_state=seed)
         fitted_umap = umap.fit(descriptors)
         return fitted_umap.transform(descriptors)
